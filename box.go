@@ -97,7 +97,7 @@ func (b *box) RemoveAllCircles() error {
 	isCircleExist := false
 	for i := 0; i < len(b.shapes); i++ {
 		switch b.shapes[i].(type) {
-		case Circle:
+		case Circle, *Circle:
 			if i == len(b.shapes) {
 				b.shapes = append(b.shapes[:i])
 			} else {
