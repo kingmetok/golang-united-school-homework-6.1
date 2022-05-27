@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+const shapeNotFoundMessage = "shape wasn't found"
+
 // box contains list of shapes and able to perform operations on them
 type box struct {
 	shapes         []Shape
@@ -13,6 +15,7 @@ type box struct {
 // NewBox creates new instance of box
 func NewBox(shapesCapacity int) *box {
 	return &box{
+		shapes:         []Shape{},
 		shapesCapacity: shapesCapacity,
 	}
 }
@@ -35,7 +38,7 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 	}
 	shape := b.shapes[i]
 	if shape == nil {
-		return nil, fmt.Errorf("shape wasn't found")
+		return nil, fmt.Errorf(shapeNotFoundMessage)
 	}
 	return shape, nil
 }
@@ -48,7 +51,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 	}
 	shape := b.shapes[i]
 	if shape == nil {
-		return nil, fmt.Errorf("shape wasn't found")
+		return nil, fmt.Errorf(shapeNotFoundMessage)
 	}
 	b.shapes = append(b.shapes[:i], b.shapes[i+1:]...)
 	return shape, nil
@@ -62,7 +65,7 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 	}
 	sh := b.shapes[i]
 	if shape == nil {
-		return nil, fmt.Errorf("shape wasn't found")
+		return nil, fmt.Errorf(shapeNotFoundMessage)
 	}
 	b.shapes[i] = shape
 	return sh, nil
